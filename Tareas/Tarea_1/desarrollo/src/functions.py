@@ -1,2 +1,0 @@
-## creation of the neccesary functions for the development of the project
-
