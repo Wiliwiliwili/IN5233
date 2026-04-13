@@ -2,7 +2,7 @@
 
 ## 1. Project Setup
 - Create a virtual environment (`venv` or `conda`).
-- Install required mathematical and data libraries: `pip install pandas numpy scipy python-dateutil`.
+- Install required mathematical and data libraries: `uv install pandas numpy scipy python-dateutil`.
 - Establish the folder structure:
   - `data/` (Store the extracted JSON data here)
   - `src/`
