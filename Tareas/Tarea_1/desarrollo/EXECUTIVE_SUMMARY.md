@@ -16,6 +16,12 @@
 | **Current Par Rates** | 4.65%-5.91% |
 | **Rate Disadvantage** | 160-290 basis points |
 
+![Portfolio Composition](visualizations/01_portfolio_composition.png)
+*Portfolio breakdown across 4 counterparties*
+
+![NPV by Swap](visualizations/02_npv_by_swap.png)
+*Only Swap #1105 is in-the-money; 3 swaps out-of-money*
+
 ---
 
 ## RISK EXPOSURE
@@ -39,6 +45,12 @@
 
 (\* Regulatory framework scenarios, not probability-weighted)
 
+![Stress Test Results](visualizations/03_stress_test_results.png)
+*CMF RAN 21-13 regulatory scenarios showing worst case at -1.27B NPV*
+
+![Sensitivity Analysis](visualizations/04_sensitivity_analysis.png)
+*DV01 tornado chart - Interest rate sensitivity dominates other risks*
+
 ---
 
 ## WHY THE LOSSES?
@@ -59,6 +71,15 @@ The portfolio is **severely underwater** due to:
    - Rates rose sharply 2021-2023 (inflation + policy tightening)
    - Stabilized at elevated levels through 2024-2026
    - No reversal expected in medium term
+
+![Rate Comparison](visualizations/08_rate_comparison.png)
+*Locked rates vs current par rates - 160-360 bps disadvantage*
+
+![Maturity Ladder](visualizations/09_maturity_ladder.png)
+*37.5% of portfolio expires in 38 days - immediate action required*
+
+![Counterparty Concentration](visualizations/10_counterparty_concentration.png)
+*56% exposure with single bank exceeds safe risk limits*
 
 ---
 

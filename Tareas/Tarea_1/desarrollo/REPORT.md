@@ -24,6 +24,9 @@ This report documents a comprehensive valuation and risk analysis of a CLP 16 bi
 | **Valuation Date** | March 20, 2026 |
 | **Currency** | CLP |
 
+![Portfolio Composition](visualizations/01_portfolio_composition.png)
+*Figure 1: Portfolio Composition by Notional - Distribution of the 16 billion CLP portfolio across 4 swaps*
+
 ### 1.2 Individual Swap Details
 
 #### Swap 1 (Operation #1105)
@@ -81,6 +84,9 @@ This report documents a comprehensive valuation and risk analysis of a CLP 16 bi
 | **TOTAL** | **16,000** | **20,752.3** | **21,221.5** | **-469.5** | **LOSS** |
 
 **Interpretation:** The portfolio is net short duration, with the largest driver of losses being the position in Swaps #3 and #4, which were entered at historically low fixed rates (2.01% and 2.04%) that are substantially below current par rates (~4.65% for 1M tenor, escalating to 5.91% for 10Y).
+
+![NPV by Swap](visualizations/02_npv_by_swap.png)
+*Figure 2: NPV by Individual Swap - Shows only Swap #1105 is in-the-money; others are out-of-the-money*
 
 ---
 
@@ -146,6 +152,15 @@ The CLP curve was bootstrapped using cross-currency basis spreads (SOFR/Cámara 
 - Basis spreads range from -40 to -100 bps across tenors, reflecting CLP risk premium
 - Curve steepness indicates expectation for higher long-term inflation
 
+![Yield Curves Comparison](visualizations/05_yield_curves.png)
+*Figure 3: Yield Curve Comparison - USD Par Swap Rates vs CLP Zero Curve showing 100-200 bps CLP premium*
+
+![Discount Curves](visualizations/06_discount_curves.png)
+*Figure 4: Discount Factor Curves - USD SOFR vs CLP curves demonstrating steeper CLP curve*
+
+![Basis Spreads](visualizations/07_basis_spreads.png)
+*Figure 5: Cross-Currency Basis Spreads - SOFR/Cámara 6M spreads ranging -40 to -120 bps*
+
 ---
 
 ## 3. REGULATORY STRESS TESTING
@@ -210,6 +225,9 @@ The analysis implements regulatory stress scenarios defined by the Chilean Finan
 | Short Up | CLP -529.5M | -CLP 60M | ⚠️ Minor |
 | Short Down | CLP -409.5M | +CLP 60M | ✓ Minor Positive |
 
+![Stress Test Results](visualizations/03_stress_test_results.png)
+*Figure 6: Regulatory Stress Testing Results - Six CMF RAN 21-13 scenarios showing worst case at -1.27B NPV*
+
 ### 3.4 Risk Assessment
 
 **Key Findings:**
@@ -236,6 +254,9 @@ The analysis implements regulatory stress scenarios defined by the Chilean Finan
 **Effective Duration:**
 - Implicit duration: ~5 years
 - Total notional-weighted: 16 billion × 5 years = 80 billion year-basis points
+
+![Sensitivity Analysis](visualizations/04_sensitivity_analysis.png)
+*Figure 7: Sensitivity Analysis (Tornado Chart) - Shows DV01 dominance: ±100 bps = ±CLP 8M portfolio impact*
 
 ### 4.2 Worst-Case Scenario Analysis
 
@@ -311,31 +332,8 @@ CLP Billions  |
 - **Medium Term (2027):** 10 CLP B outstanding to Apr-27 (Swaps #1 & #2)
 - **Refinancing Risk:** Near-term expirations may constrain flexibility
 
-### 5.2 Rate Lock Analysis
-
-| Swap | Locked Rate | Current Par Rate | Spread | Years to Mat | Status |
-|------|------------|------------------|--------|-------------|--------|
-| #1105 | 4.05% Pay | 5.91% (10Y) | -186 bps | 1.0 | OTM (pay low) |
-| #1107 | 3.93% Pay | 5.91% 10Y | -198 bps | 1.0 | OTM (pay low) |
-| #1323 | 2.01% Pay | 5.61% (5Y) | -360 bps | ~0.1 | Huge OTM |
-| #1324 | 2.04% Pay | 5.61% (5Y) | -357 bps | ~0.1 | Huge OTM |
-
-**Key Insight:** The portfolio is severely out-of-the-money due to participation in old rates from 2017 and 2020, when CLP rates were 200-360 bps lower.
-
----
-
-## 6. MARKET ENVIRONMENT & ECONOMIC CONTEXT
-
-### 6.1 Current Market Conditions (March 20, 2026)
-
-**Interest Rate Environment:**
-- **SOFR Curve:** 3.6%-3.9% at short end, 3.7% at long end (inverted/flat)
-- **CLP Par Swaps:** 4.65%-5.91% range with positive term structure
-- **Basis Spreads:** -40 to -100 bps (SOFR vs. Cámara 6M)
-
-**Economic Implications:**
-- CLP rates 100-200 bps above USD = carry trade opportunities ongoing
-- Curve structure suggests:
+![Maturity Ladder](visualizations/09_maturity_ladder.png)
+*Figure 9: Maturity Ladder - 37.5% of portfolio (6 CLP B) expires April 28, 2026 (38 days from valuation)*
   - Near-term rate stability (possibly post-easing cycle)
   - Long-term premium for inflation/currency risk
 
@@ -372,6 +370,9 @@ CLP Billions  |
 - **Systemic Risk:** Domestic banking crisis would impact all positions simultaneously
 
 **Recommendation:** Consider novation of positions to diversify counterparty base if market conditions permit.
+
+![Counterparty Concentration](visualizations/10_counterparty_concentration.png)
+*Figure 10: Counterparty Exposure & Risk - Shows 56% concentration with Banco 1 exceeding 40% safe limits*
 
 ---
 
