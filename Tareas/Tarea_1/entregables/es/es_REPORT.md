@@ -218,12 +218,12 @@ El análisis implementa escenarios de estrés regulatorios definidos por la Comi
 | Escenario | Impacto NPV | Pérdida/Ganancia | Severidad |
 |----------|-------------|------------------|----------|
 | Base | CLP -469,5M | — | — |
-| Subida Paralela | CLP -1.269,5M | -CLP 800M | ⚠️⚠️⚠️ **CRÍTICO** |
-| Bajada Paralela | CLP +330,5M | +CLP 800M | ✓ OPORTUNIDAD |
-| Empinamiento | CLP -249,5M | +CLP 220M | ✓ Positivo |
-| Aplanamiento | CLP -689,5M | -CLP 220M | ⚠️ Conmovedor |
-| Subida Corto | CLP -529,5M | -CLP 60M | ⚠️ Menor |
-| Bajada Corto | CLP -409,5M | +CLP 60M | ✓ Positivo |
+| Subida Paralela | CLP -1.269,5M | -CLP 800M | Crítico |
+| Bajada Paralela | CLP +330,5M | +CLP 800M | Oportunidad |
+| Empinamiento | CLP -249,5M | +CLP 220M | Positivo |
+| Aplanamiento | CLP -689,5M | -CLP 220M | Conmovedor |
+| Subida Corto | CLP -529,5M | -CLP 60M | Menor |
+| Bajada Corto | CLP -409,5M | +CLP 60M | Positivo |
 
 ![Stress Test Results](visualizations/03_stress_test_results.png)
 *Figura 6: Resultados de Pruebas de Estrés Regulatorio - Seis escenarios CMF RAN 21-13 mostrando el peor caso en -1,27B NPV*
