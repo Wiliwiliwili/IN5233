@@ -1,0 +1,116 @@
+% Template:     Informe LaTeX
+% Documento:    Archivo principal
+% Versión:      8.4.4 (02/12/2025)
+% Codificación: UTF-8
+%
+% Autor: Pablo Pizarro R.
+%        pablo@ppizarror.com
+%
+% Manual template: [https://latex.ppizarror.com/informe]
+% Licencia MIT:    [https://opensource.org/licenses/MIT]
+
+% CREACIÓN DEL DOCUMENTO
+\documentclass[
+	spanish, % Idioma: spanish, english, etc.
+	a4paper, oneside
+]{article}
+
+% INFORMACIÓN DEL DOCUMENTO
+\def\documenttitle {Valoración y Riesgo de Cartera de Swaps}
+\def\documentsubtitle {Análisis de riesgo y valoración de swaps CLP}
+\def\documentsubject {Valoración y riesgo de cartera de swaps}
+
+\def\documentauthor {IN5233}
+\def\coursename {IN5233}
+\def\coursecode {IN5233}
+
+\def\universityname {Universidad de Chile}
+\def\universityfaculty {Facultad de Ciencias Físicas y Matemáticas}
+\def\universitydepartment {Departamento de Ingeniería Industrial}
+\def\universitydepartmentimage {departamentos/dii}
+\def\universitydepartmentimagecfg {height=1.57cm}
+\def\universitylocation {Santiago de Chile}
+
+% INTEGRANTES, PROFESORES Y FECHAS
+\def\authortable {
+	\begin{tabular}{ll}
+		Integrantes:
+		& \begin{tabular}[t]{l}
+			Integrante 1 \\
+			Integrante 2
+		\end{tabular} \\
+		Profesor:
+		& \begin{tabular}[t]{l}
+			Profesor 1
+		\end{tabular} \\
+		Auxiliar:
+		& \begin{tabular}[t]{l}
+			Auxiliar 1
+		\end{tabular} \\
+		Ayudantes:
+		& \begin{tabular}[t]{l}
+			Ayudante 1 \\
+			Ayudante 2
+		\end{tabular} \\
+		\multicolumn{2}{l}{Ayudante de laboratorio: Ayudante 1} \\
+		& \\
+		\multicolumn{2}{l}{Fecha de realización: \today} \\
+		\multicolumn{2}{l}{Fecha de entrega: \today} \\
+		\multicolumn{2}{l}{\universitylocation}
+	\end{tabular}
+}
+
+% IMPORTACIÓN DEL TEMPLATE
+\input{template}
+
+% Extra config para este informe
+\graphicspath{{../Tarea_1/entregables/es/Tex/img/}{img/}}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+% INICIO DE PÁGINAS
+\begin{document}
+
+% PORTADA
+\templatePortrait
+
+% CONFIGURACIÓN DE PÁGINA Y ENCABEZADOS
+\templatePagecfg
+
+% RESUMEN O ABSTRACT
+\begin{abstractd}
+	Este informe documenta una valoración y análisis de riesgo integral de una cartera de swaps en CLP por 16 mil millones, incluyendo construcción de curvas, pruebas de estrés regulatorias y recomendaciones de cobertura.
+\end{abstractd}
+
+% TABLA DE CONTENIDOS - ÍNDICE
+\templateIndex
+
+% CONFIGURACIONES FINALES
+\templateFinalcfg
+
+% ======================= INICIO DEL DOCUMENTO =======================
+
+\input{report_body}
+
+% FIN DEL DOCUMENTO
+\end{document}

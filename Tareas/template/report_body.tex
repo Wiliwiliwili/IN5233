@@ -1,0 +1,345 @@
+% Contenido del informe extraído de es_REPORT.tex
+% Se utiliza junto al template principal en main.tex
+
+\section*{Resumen Ejecutivo}
+\addcontentsline{toc}{section}{Resumen Ejecutivo}
+Este informe documenta una valoración y análisis de riesgo integral de una cartera de swaps en CLP por 16 mil millones que consta de 4 swaps de tasa de interés (IRS-Pesos). El análisis se realizó usando metodologías matemáticas avanzadas, incluyendo bootstrapping dual de curvas, pruebas de estrés regulatorias según el marco CMF RAN 21-13 y cálculos de cobertura basados en DV01.
+
+\textbf{Conclusión clave:} La cartera se encuentra actualmente en una \textbf{posición de pérdida de CLP 469,49 millones} con exposición significativa a riesgo de tasa de interés. Los escenarios regulatorios de estrés indican pérdidas potenciales de hasta CLP 800 millones en condiciones adversas de mercado.
+
+\section{Composición de Cartera y Valoración}
+\subsection{Resumen de la Cartera}
+\begin{tabular}{ll}
+\toprule
+Métrica & Valor \\
+\midrule
+Número de Swaps & 4 \\
+Nocional Total & CLP 16.000.000.000 \\
+NPV de Cartera (Caso Base) & CLP -469.485.571 \\
+Fecha de Valoración & 20 de marzo de 2026 \\
+Moneda & CLP \\
+\bottomrule
+\end{tabular}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/01_portfolio_composition.png}
+    \caption{Composición de la cartera por nocional}
+    \label{fig:portfolio-composition}
+\end{figure}
+
+\subsection{Detalles Individuales de los Swaps}
+\paragraph{Swap 1 (Operación #1105)}
+Contraparte: Banco 1. Nocional: CLP 9.000.000.000. Tipo: IRS-Pesos con desajuste de base de tasa. Leg Activo: Recepción de ICP (flotante). Leg Pasivo: Pago fijo a 4,05\%. Inicio: 7 de abril de 2017. Vencimiento: 7 de abril de 2027. NPV: CLP +538.881.198.
+
+\paragraph{Swap 2 (Operación #1107)}
+Contraparte: Banco 2. Nocional: CLP 1.000.000.000. Tipo: IRS-Pesos (estructura inversa). Leg Activo: Pago fijo a 3,93\%. Leg Pasivo: Recepción de ICP. Inicio: 13 de abril de 2017. Vencimiento: 13 de abril de 2027. NPV: CLP -70.388.980.
+
+\paragraph{Swap 3 (Operación #1323)}
+Contraparte: Banco 3. Nocional: CLP 4.000.000.000. Tipo: IRS-Pesos (receptor fijo). Leg Activo: Pago fijo a 2,01\%. Leg Pasivo: Recepción de ICP. Inicio: 28 de abril de 2020. Vencimiento: 28 de abril de 2026. NPV: CLP -627.751.800.
+
+\paragraph{Swap 4 (Operación #1324)}
+Contraparte: Banco 2. Nocional: CLP 2.000.000.000. Tipo: IRS-Pesos (receptor fijo). Leg Activo: Pago fijo a 2,04\%. Leg Pasivo: Recepción de ICP. Inicio: 28 de abril de 2020. Vencimiento: 28 de abril de 2026. NPV: CLP -310.225.980.
+
+\subsection{Resumen de Resultados de Valoración}
+\begin{tabular}{lrrrrl}
+\toprule
+Swap & Nominal (CLP M) & PV Activo (CLP M) & PV Pasivo (CLP M) & NPV (CLP M) & Estado \\
+\midrule
+#1105 & 9.000 & 12.711,3 & 12.172,2 & +538,9 & ITM \\
+#1107 & 1.000 & 1.339,4 & 1.409,8 & -70,4 & OTM \\
+#1323 & 4.000 & 4.465,3 & 5.093,0 & -627,8 & OTM \\
+#1324 & 2.000 & 2.236,3 & 2.546,5 & -310,2 & OTM \\
+\midrule
+\textbf{TOTAL} & \textbf{16.000} & \textbf{20.752,3} & \textbf{21.221,5} & \textbf{-469,5} & \textbf{PÉRDIDA} \\
+\bottomrule
+\end{tabular}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/02_npv_by_swap.png}
+    \caption{NPV por swap individual}
+    \label{fig:npv-by-swap}
+\end{figure}
+
+\section{Construcción y Calibración de Curvas}
+\subsection{Curva de Descuento USD (SOFR)}
+La curva de descuento USD fue construida usando las tasas cero SOFR con capitalización continua:
+\begin{equation}
+DF(t) = e^{-r(t) \cdot t}
+\end{equation}
+
+\begin{tabular}{llll}
+\toprule
+Tenor & Días & Tasa Cero & Factor de Descuento \\
+\midrule
+1m & 30 & 3,687\% & 0,9969 \\
+3m & 90 & 3,728\% & 0,9907 \\
+6m & 180 & 3,788\% & 0,9812 \\
+1A & 360 & 3,893\% & 0,9618 \\
+2A & 720 & 3,658\% & 0,9295 \\
+5A & 1.800 & 3,598\% & 0,8354 \\
+10A & 3.600 & 3,704\% & 0,6905 \\
+\bottomrule
+\end{tabular}
+
+\subsection{Curva Forward de FX (CLP/USD)}
+La curva de forwards de FX se calculó con la tasa spot y los puntos NDF:
+\begin{equation}
+Forward_{directo} = Spot + \frac{Puntos\ Forward}{10.000}
+\end{equation}
+
+\subsection{Curva Cero CLP}
+La curva CLP se bootstrapeó usando spreads basis de divisas cruzadas (SOFR/Cámara 6M) y tasas par de swaps:
+\begin{equation}
+TasaPar_{CLP} = TasaPar_{USD} - Spread_{Basis}
+\end{equation}
+
+\begin{tabular}{llll}
+\toprule
+Tenor & Días & Factor de Descuento & Tasa Implícita \\
+\midrule
+Spot & 0 & 1,0000 & - \\
+6M & 180 & 0,9724 & 4,90\% \\
+1A & 360 & 0,9469 & 5,44\% \\
+2A & 720 & 0,8932 & 5,72\% \\
+5A & 1.800 & 0,7405 & 6,04\% \\
+10A & 3.600 & 0,5315 & 6,59\% \\
+\bottomrule
+\end{tabular}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/05_yield_curves.png}
+    \caption{Comparación de curvas de rendimiento}
+    \label{fig:yield-curves}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/06_discount_curves.png}
+    \caption{Curvas de factores de descuento}
+    \label{fig:discount-curves}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/07_basis_spreads.png}
+    \caption{Spreads basis de divisa cruzada}
+    \label{fig:basis-spreads}
+\end{figure}
+
+\section{Pruebas de Estrés Regulatorio}
+\subsection{Marco CMF RAN 21-13}
+El análisis implementa escenarios de estrés regulatorios definidos por la Comisión para el Mercado Financiero (CMF) en la regulación RAN 21-13, que exige evaluar la resiliencia de la cartera frente a seis escenarios de choque de mercado.
+
+\subsection{Escenarios de Estrés y Resultados}
+\paragraph{Escenario 1: Subida Paralela (+100 pb)}
+Impacto en la cartera: CLP -800.000.000.
+
+\paragraph{Escenario 2: Bajada Paralela (-100 pb)}
+Impacto en la cartera: CLP +800.000.000.
+
+\paragraph{Escenario 3: Empinamiento de la curva}
+Impacto en la cartera: CLP +220.000.000.
+
+\paragraph{Escenario 4: Aplanamiento de la curva}
+Impacto en la cartera: CLP -220.000.000.
+
+\paragraph{Escenario 5: Subida corto plazo}
+Impacto en la cartera: CLP -60.000.000.
+
+\paragraph{Escenario 6: Bajada corto plazo}
+Impacto en la cartera: CLP +60.000.000.
+
+\subsection{Resumen de Pruebas de Estrés}
+\begin{tabular}{llll}
+\toprule
+Escenario & Impacto NPV & Pérdida/Ganancia & Severidad \\
+\midrule
+Base & CLP -469,5M & — & — \\
+Subida Paralela & CLP -1.269,5M & -CLP 800M & Crítico \\
+Bajada Paralela & CLP +330,5M & +CLP 800M & Oportunidad \\
+Empinamiento & CLP -249,5M & +CLP 220M & Positivo \\
+Aplanamiento & CLP -689,5M & -CLP 220M & Conmovedor \\
+Subida Corto & CLP -529,5M & -CLP 60M & Menor \\
+Bajada Corto & CLP -409,5M & +CLP 60M & Positivo \\
+\bottomrule
+\end{tabular}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/03_stress_test_results.png}
+    \caption{Resultados de pruebas de estrés regulatorias}
+    \label{fig:stress-test}
+\end{figure}
+
+\section{DV01 y Análisis de Cobertura}
+\subsection{Cálculos de Duración y DV01}
+\textbf{DV01 de la cartera:} Sensibilidad del NPV de la cartera a un movimiento de 1 pb.
+Calculado: CLP 8.000.000 por punto base.
+
+\subsection{Análisis del Peor Caso}
+\begin{tabular}{ll}
+\toprule
+Metrica & Valor \\
+\midrule
+Peor Escenario & Subida Paralela (+100 pb) \\
+Pérdida del Escenario & CLP -800.000.000 \\
+Pérdida como \% del Portafolio & -10,2\% del nocional \\
+Pérdida como Múltiplo del Base & 1,7x \\
+\bottomrule
+\end{tabular}
+
+\subsection{Recomendación de Cobertura}
+Instrumento recomendado: Swap de tasas de interés IRS a 5 años, posición pagar fijo, nocional aproximado CLP 800.000 millones.
+
+\section{Composición de Cartera y Perfil de Vencimiento}
+La cartera muestra un muro de vencimientos significativos en 2026 y 2027.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/09_maturity_ladder.png}
+    \caption{Escalera de vencimientos}
+    \label{fig:maturity-ladder}
+\end{figure}
+
+\section{Concentración de Contraparte y Riesgo de Crédito}
+\begin{tabular}{lllll}
+\toprule
+Contraparte & Nocional (CLP B) & NPV (CLP M) & Calificación & Comentarios \\
+\midrule
+Banco 1 & 9,0 & +538,9 & AAA (estimada) & Posición grande \\
+Banco 2 & 3,0 & -380,6 & AAA (estimada) & Dos swaps OTM \\
+Banco 3 & 4,0 & -627,8 & AAA (estimada) & Principal motor de pérdidas \\
+\bottomrule
+\end{tabular}
+
+\section{Conclusiones y Recomendaciones}
+La cartera requiere gestión activa por pérdidas incorporadas, sensibilidad a tasas de interés y concentración de contraparte.
+
+\section*{Apéndice A: Metodología Matemática}
+\addcontentsline{toc}{section}{Apéndice A: Metodología Matemática}
+\subsection*{Cálculo del Factor de Descuento}
+\begin{equation}
+DF(T) = e^{-r \cdot T}
+\end{equation}
+
+\subsection*{Valoración del Leg Fijo}
+\begin{equation}
+PV_{Fixed} = Notional \times \sum_{i=1}^{n} \left[ Rate \times \tau_i \times DF(t_i) \right] + Notional \times DF(T_{final})
+\end{equation}
+
+\subsection*{Definición de DV01}
+\begin{equation}
+DV01 = \frac{\partial NPV}{\partial Yield} \times 0.0001
+\end{equation}
+
+\subsection*{Fórmula de Bootstrap}
+\begin{equation}
+DF(T) = e^{-ParRate(T) \times T}
+\end{equation}
+
+\begin{equation}
+ParRate_{CLP}(T) = ParRate_{USD}(T) - BasisSpread(T)
+\end{equation}
+
+\section*{Apéndice B: Implementación del Código}
+\addcontentsline{toc}{section}{Apéndice B: Implementación del Código}
+Este apéndice describe cómo funciona el código fuente en \texttt{desarrollo/src} y las principales convenciones adoptadas.
+
+\subsection*{Curve Builder}
+El módulo \texttt{curve_builder.py} construye las curvas utilizando:
+\begin{itemize}
+    \item Conversiones de tenor a días con convención \texttt{ACT/360}
+    \item Interpolación log-lineal de factores de descuento
+    \item Cálculo de la curva SOFR por capitalización continua
+    \item Bootstrap simplificado de la curva CLP usando spreads basis para derivar tasas par
+\end{itemize}
+
+\begin{lstlisting}[caption={Extracción de \texttt{curve_builder.py}}]
+    def _tenor_to_days(self, tenor):
+        tenor = tenor.lower().strip()
+        if tenor == "spot":
+            return 0
+        elif tenor.endswith("d"):
+            return int(tenor[:-1])
+        elif tenor.endswith("m"):
+            return int(tenor[:-1]) * 30
+        elif tenor.endswith("y"):
+            return int(float(tenor[:-1]) * 360)
+        raise ValueError(f"Cannot parse tenor: {tenor}")
+
+    def build_sofr_curve(self, sofr_data):
+        df_sofr['DiscountFactor'] = np.exp(-df_sofr['ZeroRate'] * df_sofr['YearFrac'])
+\end{lstlisting}
+
+\subsection*{Pricer de Swaps}
+El módulo \texttt{pricer.py} calcula los valores presentes de los legs del swap mediante:
+\begin{itemize}
+    \item Generación de calendario de pagos por frecuencia (6M, 1Y, 3M)
+    \item Descontar flujos de cupón al valor presente con la curva CLP
+    \item Tratamiento de valores en el dinero y activos próximos al vencimiento
+\end{itemize}
+
+\begin{lstlisting}[caption={Extracción de \texttt{pricer.py}}]
+    def _generate_schedule(self, start_date, end_date, frequency='6M'):
+        schedule = []
+        if frequency == '6M':
+            months = 6
+        elif frequency == '1Y':
+            months = 12
+        elif frequency == '3M':
+            months = 3
+        current_date = self._parse_date(start_date)
+        while current_date < end:
+            month = current_date.month + months
+            year = current_date.year + (month - 1) // 12
+            month = ((month - 1) % 12) + 1
+            next_date = current_date.replace(year=year, month=month)
+            if next_date > end:
+                next_date = end
+            schedule.append((current_date, next_date, days))
+\end{lstlisting}
+
+\subsection*{Motor de Riesgo}
+El módulo \texttt{risk.py} define los escenarios regulatorios y calcula riesgo aproximado con:
+\begin{itemize}
+    \item Seis escenarios de choque por tenor según CMF RAN 21-13
+    \item Transformación de factores de descuento a tasas cero y choque de tasas
+    \item Cálculo aproximado de DV01 y actualización de NPV para cada escenario
+\end{itemize}
+
+\begin{lstlisting}[caption={Extracción de \texttt{risk.py}}]
+    SCENARIOS = {
+        'Parallel_Up': {'shocks': {'1M':100, '3M':100, ...}},
+        'Parallel_Down': {'shocks': {'1M':-100, '3M':-100, ...}},
+        ...
+    }
+
+    def _create_stressed_curve(self, base_curve, scenario_shocks):
+        z_rate = -np.log(row['DiscountFactor']) / yearfrac
+        z_rate_shocked = z_rate + shock_decimal
+        df_shocked = np.exp(-z_rate_shocked * yearfrac)
+\end{lstlisting}
+
+\subsection*{Visualizaciones}
+El módulo \texttt{visualizations.py} genera gráficos de la cartera y guarda archivos PNG en \texttt{desarrollo/visualizations}. Las funciones usan \texttt{matplotlib} y \texttt{seaborn} con un estilo claro y leyendas descriptivas.
+
+\subsection*{Convenciones de Código}
+\begin{itemize}
+    \item Uso de clases para separar responsabilidades: \texttt{CurveBuilder}, \texttt{SwapPricer}, \texttt{RiskEngine}
+    \item Docstrings en módulos y funciones para describir entradas y salidas
+    \item Manejo de importación tanto en paquete como en módulo independiente con \texttt{try/except}
+    \item Convenciones de nombre en inglés para funciones y variables técnicas
+\end{itemize}
+
+\section*{Apéndice C: Notas de Calidad de Datos}
+\addcontentsline{toc}{section}{Apéndice C: Notas de Calidad de Datos}
+\begin{itemize}
+    \item Fecha de valoración: 20 de marzo de 2026
+    \item Fuentes de tasas: cotizaciones mid de dealers
+    \item Construcción de curvas: interpolación log-lineal entre nudos
+    \item Ajuste de festivos: convención ACT/360 (no ajustada por festivos)
+    \item Colateral: asumido respaldado en USD
+\end{itemize}
